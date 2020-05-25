@@ -31,37 +31,43 @@ read opcion
 
 case $opcion in
     1)
-        sh 1_info/info.sh
+        sh scripts/1_info/info.sh
         ;;
     2) 
-        sh 2_gestion/gestion.sh
+        sh scripts/2_gestion/gestion.sh
         ;;
     3)
-        sh 3_mod/mod.sh
+        sh scripts/3_mod/mod.sh
         ;;
     4)
-        sh 4_permisos/permisos.sh
+        sh scripts/4_permisos/permisos.sh
         ;;
     5)
-        sh 5_copia/copia.sh
+        sh scripts/5_copia/copia.sh
         ;;
     6)
-        sh 6_busqueda/busqueda.sh
+        sh scripts/6_busqueda/busqueda.sh
         ;;
     7)
-        sh 7_instalacion/instalacion.sh
+        sh scripts/7_instalacion/instalacion.sh
         ;;
     8)
-        sh 8_limpieza/limpieza.sh
+        sh scripts/8_limpieza/limpieza.sh
         ;;
     9) 
-        sh 9_recuperar/recuperar.sh
+        sh scripts/9_recuperar/recuperar.sh
         ;;
     10)
-        sh 10_servicios/servicios.sh
+        sh scripts/10_servicios/servicios.sh
         ;;
     11)
-        sh 11_espacio/espacio.sh
+        sh scripts/11_espacio/espacio.sh
+        ;;
+    12)
+        sh scripts/12_memoria/memoria.sh
+        ;;
+    13)
+        sh scripts/13_dispositivos/dispositivos.sh
         ;;
 esac
 
