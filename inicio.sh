@@ -69,6 +69,8 @@ case $opcion in
     13)
         sh scripts/13_dispositivos/dispositivos.sh
         ;;
+    14)
+        sh scripts/14_backup/backup.sh
 esac
 
 

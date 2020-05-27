@@ -39,32 +39,6 @@ Inténtalo nuevamente\n"
 Inténtalo nuevamente\n"    
     fi
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    #verifyAction # Comprueba que el fichero haya sido copiado correctamente
-
-    #if [ $exists -gt 0 ]; then
-        #echo "\e[0;32mFichero copiado correctamente en la ruta:\e[0m $destination"
-    #else
-        #echo "\e[0;3mNo se ha podido copiar el fichero en la ruta:\e[0m $destination"
-    #fi
-
 }
 
 b(){
