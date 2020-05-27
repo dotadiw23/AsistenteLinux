@@ -1,17 +1,23 @@
 #!/bin/bash
 
+scriptHistory=historial/script2.txt
+
 # En caso que falten parámetros de entrada, esta función lo 
 # notifica al usuario
 msgError(){
     clear
-    echo "\n\e[0;31m[ERROR]\e[0m Faltan parámetros"
+    output="\n\e[0;31m[ERROR]\e[0m Faltan parámetros"
+    echo $output
+    echo $output >> scriptHistory
 }
 
 # Perimte visualizar todos los usuarios del sistema 
 a(){
-    USERS=$(getent passwd)
+    USERS=$(cut -d ":" -f 1 /etc/passwd)
     clear
-    echo "\n\e[1;32m[USUARIOS DEL SISTEMA]\e[0m\n\n$USERS\n"
+    output="\n\e[1;32m[USUARIOS DEL SISTEMA]\e[0m\n\n"
+    $USERS
+    echo $output >> $scriptHistory
 }
 
 # Permite ver los usuarios conectados en el sistema
@@ -19,6 +25,7 @@ b(){
     CONNECTED=$(w)
     clear
     echo "\n\e[1;32m[USUARIOS CONECTADOS]\e[0m\n$CONNECTED\n"
+    echo "\n\e[1;32m[USUARIOS CONECTADOS]\e[0m\n$CONNECTED\n" >> $scriptHistory
 }
 
 # Permite ver los usuarios conectados en el sistema
@@ -34,13 +41,15 @@ c(){
         if [ -z $msg ]; then
             clear
             echo "\n\e[0;31m[ERROR]\e[0m El usuario $1 no existe"
+            echo "\n\e[0;31m[ERROR]\e[0m El usuario $1 no existe" >> $scriptHistory
         else
             if [ -z $estadoUsuario ]; then
                 clear
                 echo "\n$msg \e[0;31m[Usuario Desconectado]\e[0m"
+                echo "\n$msg \e[0;31m[Usuario Desconectado]\e[0m" >> $scriptHistory
             else
                 clear
-                echo "\n$msg \e[1;32m[Usuario Conectado]\e[0m"
+                echo "\n$msg \e[1;32m[Usuario Conectado]\e[0m" >> $scriptHistory
             fi
         fi
     fi
@@ -59,15 +68,20 @@ d(){
             group=$(grep -i $3 /etc/group)
             if [ -z "$group" ]; then # Si el grupo no existe, lo crea
                 echo "\nCreando el grupo $3..."
+                echo "\nCreando el grupo $3..." >> $scriptHistory
                 addgroup $3
             fi
             useradd -c $2 -g $3 $1 # Crea el usuario con su comentario y lo añade al grupo
             echo "\n\e[1;32mUsuario creado correctamente\e[0m"
+            echo "\n\e[1;32mUsuario creado correctamente\e[0m" >> $scriptHistory
         else
             clear 
             echo "\n\e[0;31m[ERROR]\e[0m Se han enviado más parámetros de los que se debería
         Prueba encerrando el comentario entre parentesís 
         d usuario (comentario) grupo"
+            echo "\n\e[0;31m[ERROR]\e[0m Se han enviado más parámetros de los que se debería
+        Prueba encerrando el comentario entre parentesís 
+        d usuario (comentario) grupo" >> $scriptHistory
         fi
     fi
 }
@@ -82,6 +96,7 @@ e(){
         groupadd $1
         clear
         echo "\n\e[1;32mGrupo creado correctamente\e[0m"
+        echo "\n\e[1;32mGrupo creado correctamente\e[0m" >> $scriptHistory
     fi
 }
 
@@ -96,10 +111,12 @@ f(){
         if [ -z "$user" ]; then
             clear
             echo "\n\e[0;31m[ERROR]\e[0m El usuario $1 no existe"
+            echo "\n\e[0;31m[ERROR]\e[0m El usuario $1 no existe" >> $scriptHistory
         else
             deluser $1
             clear
             echo "\n\e[1;32mUsuario eliminado correctamente\e[0m"
+            echo "\n\e[1;32mUsuario eliminado correctamente\e[0m" >> $scriptHistory
         fi
     fi
 }
@@ -114,11 +131,11 @@ g(){
         group=$(grep -i $1 /etc/group) # Valida si el usuario existe
         if [ -z "$group" ]; then
             clear
-            echo "\n\e[0;31m[ERROR]\e[0m El grupo $1 no existe"
+            echo "\n\e[0;31m[ERROR]\e[0m El grupo $1 no existe" >> $scriptHistory
         else
             groupdel $1
             clear
-            echo "\n\e[1;32mGrupo eliminado correctamente\e[0m"
+            echo "\n\e[1;32mGrupo eliminado correctamente\e[0m" >> $scriptHistory
         fi   
     fi
 }

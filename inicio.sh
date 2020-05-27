@@ -71,6 +71,10 @@ case $opcion in
         ;;
     14)
         sh scripts/14_backup/backup.sh
+        ;;
+    15)
+        sh scripts/15_historial/historial.sh
+        ;;
 esac
 
 

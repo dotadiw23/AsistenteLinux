@@ -1,20 +1,12 @@
 #!bin/bash
 
+scriptHistory=historial/script4.txt
+
 msgError(){
+    clear
     echo  "\n\e[0;31m[Error]\e[0m Faltan parámetros"
+    echo  "\n\e[0;31m[Error]\e[0m Faltan parámetros" >> $scriptHistory
 }
-
-# Divide el la ruta dada para encontrar la carpeta contenedora
-splitDirectory()[
-    directory="$1"
-
-    folders=$(echo $directory | tr "/" "\n")
-
-    for i in $folders
-    do
-        echo "$i"
-    done
-]
 
 # Lista los directorios donde se encuentra un fichero con nombre similar
 a(){
@@ -27,6 +19,10 @@ a(){
         echo "\n\e[0;32mResultados para la búsqueda del fichero\e[0m [$1]
 En ocasiones puede tardar un poco...\n"
         find / -name $1
+        resul="$(find / -name $1)"
+        echo "\n\e[0;32mResultados para la búsqueda del fichero\e[0m [$1]
+En ocasiones puede tardar un poco...\n" >> $scriptHistory
+        echo $resul >> scriptHistory
     fi
 }
 
@@ -34,7 +30,6 @@ En ocasiones puede tardar un poco...\n"
 b(){
     if [ -z "$1" -o -z "$2" ]; then # Valida si todos los parámetro requeridos
                                     # fueron enviados
-        clear 
         msgError
     else
         clear
@@ -44,10 +39,12 @@ b(){
             actual=$(pwd)
 
             echo "\n\e[0;32mAplicando los cambios...\e[0m "
+            echo "\n\e[0;32mAplicando los cambios...\e[0m " >> $scriptHistory
             sleep 2
             chmod $2 $1
             
             echo "\nEstado actual del directorio contenedor del fichero modificado\n"
+            echo "\nEstado actual del directorio contenedor del fichero modificado\n" >> $scriptHistory
             cd "$1/.."
             ls -l
 
@@ -55,6 +52,8 @@ b(){
         else
             echo "\n\e[0;31mParece que el fichero que intentas modificar no existe...\e[0m 
 Inténtalo nuevamente"
+            echo "\n\e[0;31mParece que el fichero que intentas modificar no existe...\e[0m 
+Inténtalo nuevamente" >> $scriptHistory
         fi
     fi
 }

@@ -1,15 +1,20 @@
 #!bin/bash
 
+scriptHistory=historial/script10.txt
+
 # En caso que falten parámetros de entrada, esta función lo 
 # notifica al usuario
 msgError(){
     clear
     echo "\e[0;31m[ERROR]\e[0m Faltan parámetros"
+    echo "\e[0;31m[ERROR]\e[0m Faltan parámetros" >> $scriptHistory
 }
 
 status(){
     echo "\n\e[0;32m[Estado del servicio]\e[0m\n"
+    echo "\n\e[0;32m[Estado del servicio]\e[0m\n" >> $scriptHistory
     systemctl status $1
+    echo $(systemctl status $1) >> $scriptHistory
 }
 
 # Permite ver procesos
@@ -26,7 +31,9 @@ b(){
    else
         clear
         echo "\e[0;32mResultados para el proceso idenfiticado con PID:\e[0m [$1]\n"
+        echo "\e[0;32mResultados para el proceso idenfiticado con PID:\e[0m [$1]\n" >> $scriptHistory
         top -p $1
+        echo $(top -p $1) >> $scriptHistory
    fi 
 }
 
@@ -38,6 +45,7 @@ c(){
         clear
         systemctl start $1
         status $1
+        echo "Proceso iniciado" >> $scriptHistory
     fi
 }
 
@@ -49,6 +57,7 @@ d(){
         clear
         systemctl restart $1
         status $1
+        echo "Proceso reiniciado" >> $scriptHistory
     fi
 }
 
@@ -60,6 +69,7 @@ e(){
         clear
         systemctl stop $1
         status $1
+        echo "Proceso detenido" >> $scriptHistory
     fi
 }
 

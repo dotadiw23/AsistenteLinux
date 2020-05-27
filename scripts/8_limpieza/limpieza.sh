@@ -1,5 +1,6 @@
 #!bin/bash
 
+scriptHistory=historial/script8.txt
 continue_=false
 
 # En caso que falten parámetros de entrada, esta función lo 
@@ -7,6 +8,7 @@ continue_=false
 msgError(){
     clear
     echo "\n\e[0;31m[ERROR]\e[0m Faltan parámetros"
+    echo "\n\e[0;31m[ERROR]\e[0m Faltan parámetros" >> $scriptHistory
 }
 
 verify(){
@@ -30,8 +32,10 @@ a(){
         if [ -f $1 ]; then
             rm $1
             echo "\n\e[0;32mEl fichero\e[0m $1 \e[0;32mse ha borrado correctamente \e[0m "
+            echo "\n\e[0;32mEl fichero\e[0m $1 \e[0;32mse ha borrado correctamente \e[0m " >> $scriptHistory
         else
             echo "\n\e[0;31m[ERROR]\e[0m No se ha podido borrar el fichero, compruebe la ruta"
+            echo "\n\e[0;31m[ERROR]\e[0m No se ha podido borrar el fichero, compruebe la ruta" >> $scriptHistory
         fi
     fi
 }
@@ -46,8 +50,10 @@ b(){
         if [ -d $1 ]; then
             rm -r $1
             echo "\n\e[0;32mEl directorio\e[0m $1 \e[0;32mse ha borrado correctamente \e[0m "
+            echo "\n\e[0;32mEl directorio\e[0m $1 \e[0;32mse ha borrado correctamente \e[0m " >> $scriptHistory
         else
             echo "\n\e[0;31m[ERROR]\e[0m No se ha podido borrar el directorio, compruebe la ruta"
+            echo "\n\e[0;31m[ERROR]\e[0m No se ha podido borrar el directorio, compruebe la ruta" >> $scriptHistory
         fi
 
     fi
@@ -63,8 +69,10 @@ c(){
         if [ -d $1 ]; then
             rm -r $1/*
             echo "\n\e[0;32mEl contenido del directorio\e[0m $1 \e[0;32mse ha borrado correctamente \e[0m "
+            echo "\n\e[0;32mEl contenido del directorio\e[0m $1 \e[0;32mse ha borrado correctamente \e[0m " >> $scriptHistory
         else
             echo "\n\e[0;31m[ERROR]\e[0m No se ha podido borrar el directorio, compruebe la ruta"
+            echo "\n\e[0;31m[ERROR]\e[0m No se ha podido borrar el directorio, compruebe la ruta" >> $scriptHistory
         fi
 
     fi

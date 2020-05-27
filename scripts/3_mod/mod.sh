@@ -1,20 +1,27 @@
 #!bin/bash
 
+scriptHistory=historial/script3.txt
+
 # En caso que falten parámetros de entrada, esta función lo 
 # notifica al usuario
 msgError(){
     clear
     echo "\e[0;31m[ERROR]\e[0m Faltan parámetros"
+    echo "\e[0;31m[ERROR]\e[0m Faltan parámetros" >> $scriptHistory
 }
 
 # Lista de usuarios y grupos en el sistema
 a(){
     clear
     echo "\n\e[0;32m[Usuarios del sistema]\e[0m" 
-    cat /etc/passwd
+    cut -d ":" -f 1 /etc/passwd
+    msg=$(cut -d ":" -f 1 /etc/passwd)
+    echo $msg >> $scriptHistory
     
     echo "\n\e[0;32m[Grupos del sistema]\e[0m" 
-    cat /etc/group
+    cut -d ":" -f 1 /etc/group
+    msg=$(cut -d ":" -f 1 /etc/group)
+    echo $msg >> $scriptHistory
 }   
 
 # Cambia el nombre de un usuario, recibiendo como
@@ -28,9 +35,11 @@ b(){
         user=$(grep -i $2 /etc/shadow)
         if [ -z  "$user" ]; then
             echo "\e[0;31m[ERROR]\e[0m El usuario $2 no existe"
+            echo "\e[0;31m[ERROR]\e[0m El usuario $2 no existe" >> $scriptHistory
         else
             usermod -l $1 $2
             echo "\n\e[0;32mNombre de usuario actualizado\e[0m"
+            echo "\n\e[0;32mNombre de usuario actualizado\e[0m" >> $scriptHistory
         fi
     fi
 }
@@ -46,9 +55,11 @@ c(){
         group=$(grep -i $2 /etc/group)
         if [ -z  "$group" ]; then
             echo "\e[0;31m[ERROR]\e[0m El grupo $2 no existe"
+            echo "\e[0;31m[ERROR]\e[0m El grupo $2 no existe" >> $scriptHistory
         else
             groupmod -n $1 $2
             echo "\n\e[0;32mNombre de usuario actualizado\e[0m"
+            echo "\n\e[0;32mNombre de usuario actualizado\e[0m" >> $scriptHistory
         fi
     fi
 }
@@ -65,13 +76,16 @@ d(){
         user=$(grep -i $1 /etc/passwd)
         if [ -z "$user" ]; then
             echo "\e[0;31m[ERROR]\e[0m El usuario $1 no existe"
+            echo "\e[0;31m[ERROR]\e[0m El usuario $1 no existe" >> $scriptHistory
         else
         group=$(grep -i $2 /etc/group)
             if [ -z "$group" ]; then
                 echo "\e[0;31m[ERROR]\e[0m El grupo $2 no existe"
+                echo "\e[0;31m[ERROR]\e[0m El grupo $2 no existe" >> $scriptHistory
             else
                 usermod -g $2 $1 
                 echo "\n\e[0;32mCambio de grupo realizado con éxito\e[0m"
+                echo "\n\e[0;32mCambio de grupo realizado con éxito\e[0m" >> $scriptHistory
             fi
         fi
     fi

@@ -1,4 +1,7 @@
 #!/bin/bash
+
+scriptHistory=historial/script1.txt
+
 a() {
     DAY=$(date +%A" "%d)
     MONTH=$(date +%B)
@@ -6,7 +9,9 @@ a() {
     TIME=$(date +%I:%M)
 
     clear
-    echo "\nSon las $TIME del día $DAY de $MONTH del $YEAR\n"
+    output="\nSon las $TIME del día $DAY de $MONTH del $YEAR\n"
+    echo $output
+    echo $output >> $scriptHistory
 }
 
 b() {
@@ -15,6 +20,7 @@ b() {
     echo
     echo
     echo "$DISTRO"
+    echo $(hostnamectl) >> $scriptHistory
 }
 
 c(){
